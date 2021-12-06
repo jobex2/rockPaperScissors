@@ -1,0 +1,39 @@
+.header{
+    display: flex;
+    justify-content:center;
+}
+.prompts{
+    display: flex;
+    justify-content:center;
+}
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 200px;
+}
+
+.flex-container button{
+    background-color: azure;
+    height: 100px;
+    width: 100px;
+}
+.flex-container-score{
+    display: flex;
+    margin: 20px 200px;
+    justify-content: space-between;
+
+}
+h2{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+h3{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.roundNumber{
+    display: flex;
+    justify-content: center;
+}

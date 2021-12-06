@@ -1,4 +1,4 @@
-//function returns rock paper or scissors randomly
+/* //function returns rock paper or scissors randomly
 function computerPlay () 
 {
     //create output vars
@@ -116,10 +116,14 @@ function game()
         console.log(`Welcome to Rock Paper Scissors! this is round ${i + 1}`);
         //get user input
         let playerSelection = prompt("Please enter rock, paper or scissors.");
+
+
+   
+
         //get computer input
         let computerSelection = computerPlay();
         //play the round
-        let winner = playRound(playerSelection, computerSelection);
+       let winner = playRound(playerSelection, computerSelection);
         //record winner of round
         if ( winner == 1)
         {
@@ -148,4 +152,17 @@ function game()
 
 }
 
-game();
+game(); */
+function UserSelection (){
+const buttonRock = document.querySelector(".buttonRock");
+buttonRock.addEventListener('click',logText);
+const buttonPaper = document.querySelector(".buttonPaper")
+buttonPaper.addEventListener('click',logText);
+const buttonScissors = document.querySelector(".buttonScissors")
+buttonScissors.addEventListener('click', logText);
+}
+
+function logText(e){
+    playerSelection = this.innerHTML;
+    console.log(this.innerHTML);
+}
