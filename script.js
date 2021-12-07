@@ -1,4 +1,12 @@
-/* //function returns rock paper or scissors randomly
+ //object to hold scores and round
+ const score = {
+    player: 0,
+    computer: 0,
+    round: 1
+}
+const btns = document.querySelectorAll(".btn");
+ 
+ //function returns rock paper or scissors randomly
 function computerPlay () 
 {
     //create output vars
@@ -24,17 +32,28 @@ function computerPlay ()
         return scissors;
     } 
 }
-//plays one round of RPC outputs resulsts to conslose, and returns 1 on win 0 on loss 2 on tie
+//plays one round of RPC outputs results and returns 1 on win 0 on loss 2 on tie
 function playRound (playerSelection, computerSelection)
 {
     //convert inputs to lower case
     let playerselect = playerSelection.toLowerCase();
     let computerSelect = computerSelection.toLowerCase();
-
+    const prompt = document.querySelector(".prompts");
+    if(score.player == 5){
+        prompt.innerHTML = "You won the whole thing!!!!";
+        disableButtons();
+        return ;
+    }
+    if(score.computer == 5){
+        prompt.innerHTML = "You lost it all, sad";
+        disableButtons();
+        return ;
+    }
     //if player chooses rock and computer chooses paper 
     if( playerselect == "rock" && computerSelect == "paper")
     {
         let output = "You Loose! Paper beats Rock";
+        prompt.innerHTML = output;
         console.log(output);
         return 0;
     }
@@ -43,7 +62,7 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "rock" && computerSelect == "scissors")
     {
         let output = "You Win! Rock beats scissors";
-        console.log(output);
+        prompt.innerHTML = output;
         return 1;
     }  
 
@@ -51,14 +70,14 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "rock" && computerSelect == "rock")
     {
         let output = "You Tie! You both chose Rock!";
-        console.log(output);
+        prompt.innerHTML = output;
         return 2;
     }  
     //if player chooses paper and computer chooses paper 
     if( playerselect == "paper" && computerSelect == "paper")
     {
         let output = "You Tie! You both chose Paper!";
-        console.log(output);
+        prompt.innerHTML = output;
         return 2;
     }
 
@@ -66,7 +85,7 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "paper" && computerSelect == "scissors")
     {
         let output = "You Loose! Scissors beats Paper";
-        console.log(output);
+        prompt.innerHTML = output;
         return 0;
     }  
 
@@ -74,14 +93,14 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "paper" && computerSelect == "rock")
     {
         let output = "You Win! Paper beats Rock!";
-        console.log(output);
+        prompt.innerHTML = output;
         return 1;
     } 
     //if player chooses scissors and computer chooses paper 
     if( playerselect == "scissors" && computerSelect == "paper")
     {
         let output = "You Win! Scissors beats Paper";
-        console.log(output);
+        prompt.innerHTML = output;
         return 1;
     }
 
@@ -89,7 +108,7 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "scissors" && computerSelect == "scissors")
     {
         let output = "You Tie! You both chose Scissors";
-        console.log(output);
+        prompt.innerHTML = output;
         return 2;
     }  
 
@@ -97,72 +116,60 @@ function playRound (playerSelection, computerSelection)
     if( playerselect == "scissors" && computerSelect == "rock")
     {
         let output = "You Loose! Rock Beats Paper";
-        console.log(output);
+        prompt.innerHTML = output;
         return 0;
     } 
 }
 
-//play the game five times
-function game()
+//play the game 
+function game(playerSelection)
 {
-    //make vars for player and computer scores
-    let playerScore = 0;
-    let computerScore = 0;
-
-    //loop through the game 5 times
-    for(let i = 0; i < 5; i++){
-
-        //tell user to start the game
-        console.log(`Welcome to Rock Paper Scissors! this is round ${i + 1}`);
-        //get user input
-        let playerSelection = prompt("Please enter rock, paper or scissors.");
 
 
-   
-
-        //get computer input
-        let computerSelection = computerPlay();
-        //play the round
-       let winner = playRound(playerSelection, computerSelection);
-        //record winner of round
-        if ( winner == 1)
-        {
-            playerScore += 1;
-        }
-        if ( winner == 0)
-        {
-            computerScore += 1;
-        }
+    const roundNumber = document.querySelector(".roundNumber");
+    const humanScore = document.querySelector(".humanScore");
+    const computerScore = document.querySelector(".computerScore");
     
-        //output current score to console
-        console.log(`The score is: You ${playerScore} Comptuer ${computerScore}`);
+    
+    //get computer input
+    let computerSelection = computerPlay();
+    //play the round
+    let winner = playRound(playerSelection, computerSelection);
+    //record winner of round
+    if ( winner == 1)
+    {
+        score.player += 1;
     }
-    //display on console that you lost
-    if(playerScore < computerScore){
-        console.log("You lost :( better luck next time.");
+    if ( winner == 0)
+    {
+        score.computer += 1;
     }
-    //display on conslse that you won
-    if(playerScore > computerScore){
-        console.log("You Won :) You da Best!");
-    }
-    //display on conslse that you tied
-    if(playerScore == computerScore){
-        console.log("You Tied! Sometimes that the way it goes.");
-    }    
+
+    //update DOM with results
+    roundNumber.innerHTML = ++score.round;
+    humanScore.innerHTML = score.player;
+    computerScore.innerHTML = score.computer;
+
+    
 
 }
 
-game(); */
-function UserSelection (){
-const buttonRock = document.querySelector(".buttonRock");
-buttonRock.addEventListener('click',logText);
-const buttonPaper = document.querySelector(".buttonPaper")
-buttonPaper.addEventListener('click',logText);
-const buttonScissors = document.querySelector(".buttonScissors")
-buttonScissors.addEventListener('click', logText);
+//Waits for click and starts the game
+function StartGame (){
+
+    btns.forEach(btn => {
+        btn.addEventListener('click', function(){
+            console.log(btn.dataset.choice)
+            game(btn.dataset.choice)
+        })
+    });
+}
+//stops player from continuing to play
+function disableButtons(){
+    btns.forEach(btn => {
+        btn.disabled = true;
+    })
 }
 
-function logText(e){
-    playerSelection = this.innerHTML;
-    console.log(this.innerHTML);
-}
+StartGame();
+ 
